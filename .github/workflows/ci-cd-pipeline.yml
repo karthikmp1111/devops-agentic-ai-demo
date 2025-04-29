@@ -27,18 +27,17 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      # Run Snyk to check for vulnerabilities (correct action reference)
-      # - name: Run Snyk to check for vulnerabilities
-      #   uses: snyk/actions/setup@master
-      #   with:
-      #     snyk-token: ${{ secrets.SNYK_TOKEN }}  # Make sure SNYK_TOKEN is added to GitHub Secrets
-
-      - name: Run Snyk to check for vulnerabilities and monitor
-        uses: actions/setup-node@v1
+      # Install and Set up Snyk CLI (Correct step for Snyk CLI)
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@v1
         with:
-          command: monitor
+          snyk-version: 'latest'  # You can specify a version if needed
+
+      # Run Snyk to check for vulnerabilities and monitor
+      - name: Run Snyk to check for vulnerabilities and monitor
+        run: snyk monitor  # This runs the snyk monitor command to check vulnerabilities
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Ensure your Snyk token is in GitHub secrets
 
       # AI-based Deployment Decision
       - name: AI-based Deployment Decision
