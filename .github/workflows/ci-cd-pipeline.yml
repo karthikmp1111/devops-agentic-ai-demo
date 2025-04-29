@@ -27,9 +27,9 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      # Run Snyk for security scanning
+      # Run Snyk to check for vulnerabilities (corrected action reference)
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@v1
+        uses: snyk/actions/snyk@v1.0.0  # Corrected version
         with:
           snyk-token: ${{ secrets.SNYK_TOKEN }}
 
