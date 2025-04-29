@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express":"latest",
-    "ejs":"latest"
+    "ejs":"latest",
+    "mocha": "^10.0.0"
   }
 }
