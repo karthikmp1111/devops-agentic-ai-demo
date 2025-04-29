@@ -34,7 +34,8 @@ jobs:
 
       # Run Snyk to check for vulnerabilities (updated action reference)
       - name: Run Snyk to check for vulnerabilities
-        uses: actions/checkout@master
+        # uses: actions/checkout@master
+        uses: snyk/actions/snyk-test@v1
         with:
           snyk-token: ${{ secrets.SNYK_TOKEN }}
 
