@@ -34,7 +34,7 @@ jobs:
       #     snyk-token: ${{ secrets.SNYK_TOKEN }}  # Make sure SNYK_TOKEN is added to GitHub Secrets
 
       - name: Run Snyk to check for vulnerabilities and monitor
-        uses: snyk/actions/node@v2
+        uses: actions/setup-node@v4
         with:
           command: monitor
         env:
