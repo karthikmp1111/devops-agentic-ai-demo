@@ -29,7 +29,7 @@ jobs:
 
       # Run Snyk to check for vulnerabilities (correct action reference)
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/snyk-action@v3
+        uses: snyk/actions/snyk-test@v2
         with:
           snyk-token: ${{ secrets.SNYK_TOKEN }}  # Make sure SNYK_TOKEN is added to GitHub Secrets
 
