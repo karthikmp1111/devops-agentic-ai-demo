@@ -28,10 +28,17 @@ jobs:
         run: npm test
 
       # Run Snyk to check for vulnerabilities (correct action reference)
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/setup@master
+      # - name: Run Snyk to check for vulnerabilities
+      #   uses: snyk/actions/setup@master
+      #   with:
+      #     snyk-token: ${{ secrets.SNYK_TOKEN }}  # Make sure SNYK_TOKEN is added to GitHub Secrets
+
+      - name: Run Snyk to check for vulnerabilities and monitor
+        uses: snyk/actions/node@v3
         with:
-          snyk-token: ${{ secrets.SNYK_TOKEN }}  # Make sure SNYK_TOKEN is added to GitHub Secrets
+          command: monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       # AI-based Deployment Decision
       - name: AI-based Deployment Decision
