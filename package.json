@@ -10,8 +10,11 @@
   "author": "Adem Cemil YALCIN",
   "license": "ISC",
   "dependencies": {
-    "express":"latest",
-    "ejs":"latest",
-    "mocha": "^10.0.0"
+    "express": "latest",
+    "ejs": "latest"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "chai": "^4.3.4"
   }
 }
