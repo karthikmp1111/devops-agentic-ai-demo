@@ -23,21 +23,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Install Snyk CLI
-      - name: Install Snyk CLI
-        run: |
-          npm install -g snyk
-
       # Run Tests
       - name: Run Tests
         run: npm test
 
-      # Run Snyk to check for vulnerabilities (updated action reference)
+      # Run Snyk to check for vulnerabilities (correct action reference)
       - name: Run Snyk to check for vulnerabilities
-        # uses: actions/checkout@master
-        uses: snyk/actions/snyk-test@v1.0.0
+        uses: snyk/actions/snyk-test@v2
         with:
-          snyk-token: ${{ secrets.SNYK_TOKEN }}
+          snyk-token: ${{ secrets.SNYK_TOKEN }}  # Make sure SNYK_TOKEN is added to GitHub Secrets
 
       # AI-based Deployment Decision
       - name: AI-based Deployment Decision
@@ -46,7 +40,7 @@ jobs:
 
       # Deploy to Production (only if AI approves)
       - name: Deploy to Production
-        if: success()
+        if: success()  # This will only run if the previous steps were successful
         run: |
           echo "Deploying to production..."
           # Add actual deployment script here (e.g., AWS, DigitalOcean)
