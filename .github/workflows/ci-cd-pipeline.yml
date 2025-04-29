@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
 
       # Install dependencies
       - name: Install Dependencies
@@ -27,19 +27,19 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      # Run Snyk to check for vulnerabilities
+      # Run Snyk to check for vulnerabilities with debug
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         with:
-          args: test
+          args: test --debug --file=package.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      # Monitor with Snyk
+      # Monitor with Snyk (optional)
       - name: Monitor with Snyk
         uses: snyk/actions/node@master
         with:
-          args: monitor --debug
+          args: monitor --debug --file=package.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
