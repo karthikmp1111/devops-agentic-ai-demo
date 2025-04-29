@@ -1,4 +1,4 @@
-name: Example workflow for Node using Snyk
+name: Node.js CI/CD Pipeline
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  security:
+  build:
     runs-on: ubuntu-latest
     steps:
       # Checkout the code
@@ -23,27 +23,38 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Run Snyk to check for vulnerabilities
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Ensure your Snyk token is set as a GitHub secret
-
-      # Optionally, monitor the project for new vulnerabilities
-      - name: Monitor with Snyk
-        uses: snyk/actions/node@master
-        with:
-          args: monitor  # This will upload your project's state to the Snyk dashboard
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       # Run Tests
       - name: Run Tests
         run: npm test
 
-      # Deploy to Production (only if tests and security checks pass)
+      # Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        with:
+          args: test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # Monitor with Snyk
+      - name: Monitor with Snyk
+        uses: snyk/actions/node@master
+        with:
+          args: monitor --debug
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # AI-based Deployment Decision
+      - name: AI-based Deployment Decision
+        run: |
+          python ai_deployment_decision.py
+
+      # Deploy to Production (only if AI approves)
       - name: Deploy to Production
-        if: success()  # This will only run if the previous steps were successful
+        if: success()
         run: |
           echo "Deploying to production..."
-          # Add actual deployment script here (e.g., AWS, DigitalOcean)
+
+      # AI-based Auto-scaling
+      - name: AI-based Auto-scaling
+        run: |
+          python ai_auto_scaling.py
